@@ -27,7 +27,7 @@ contract Sc2Tournaments {
     int round; //round of 32(16eme final), round of 16(8eme de final) etc...
   }
 
-  uint tournamentsCount = 0;
+  uint public tournamentsCount = 0;
   mapping(address => uint) public balances;
   mapping(uint => Tournament) public tournaments;
 
@@ -41,16 +41,19 @@ contract Sc2Tournaments {
     owner = msg.sender;
   }
 
-
   function CreateTournament(string name, uint registrationFees, uint maxPeople) public {
     //TODO Check if tournament name doesn't exists
 
-    tournaments[tournamentsCount++].name = name;
-    tournaments[tournamentsCount++].cashprize = registrationFees * maxPeople;
-    tournaments[tournamentsCount++].registrationFees = registrationFees;
-    tournaments[tournamentsCount++].maxPeople = maxPeople;
+    uint id = tournamentsCount++;
+
+    tournaments[id].name = name;
+    tournaments[id].cashprize = registrationFees * maxPeople;
+    tournaments[id].registrationFees = registrationFees;
+    tournaments[id].maxPeople = maxPeople;
 
   }
+
+
 
   function CreateMatch(uint id, string player1Name, string player2Name, int round, uint tournamentId) public {
     tournaments[tournamentId].matches[id].player1 = player1Name;
