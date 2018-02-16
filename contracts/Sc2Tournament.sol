@@ -9,12 +9,13 @@ contract Sc2Tournaments {
     uint registrationFees;
     uint maxPeople;
     uint actualPeople;
-    uint ActualNumberOfMatch;
+    uint actualNumberOfMatch;
     mapping(uint => Player) players;
     mapping(uint => Match) matches;
   }
 
   struct Player {
+    uint id;
     string name;
     string race;
     address playerAddress;
@@ -36,7 +37,6 @@ contract Sc2Tournaments {
   event withdraw(address from, address to, uint amount);
 
   address owner;
-  uint cashprize;
 
   function Sc2Tournaments() public {
     owner = msg.sender;
@@ -53,6 +53,41 @@ contract Sc2Tournaments {
     tournaments[id].maxPeople = maxPeople;
 
   }
+
+  function GetTournament(uint id)public constant returns(
+    string name,
+    uint cashprize,
+    uint registrationFees,
+    uint maxPeople,
+    uint actualPeople,
+    uint actualNumberOfMatch){
+      return(
+          tournaments[id].name,
+          tournaments[id].cashprize,
+          tournaments[id].registrationFees,
+          tournaments[id].maxPeople,
+          tournaments[id].actualPeople,
+          tournaments[id].actualNumberOfMatch
+          );
+  }
+
+    /*function GetPlayers(uint tournamentId)public constant returns(
+        string []nam,
+        string []rac
+        ){
+
+        uint range = tournaments[tournamentId].actualPeople;
+        string[] memory name = new string[](1000);
+        string[] memory race = new string[](1000);
+
+        for (uint i = 0; i < range; i++) {
+        name[i] = tournaments[tournamentId].players[i].name;
+        race[i] = tournaments[tournamentId].players[i].race;
+    }
+
+        return (name,race);
+    }*/
+
 
 /*  function GetTournamentPlayer(uint tournamentId)
     public
@@ -102,13 +137,13 @@ contract Sc2Tournaments {
 
   }
 
-  /*function Withdraw(address playerA, uint idTournoi) public payable{
-      require(balances[msg.sender] < tournaments[idTournoi].cashprize);
-      require(msg.sender != owner);
+    function Withdraw(uint idPlayer, address playerA, uint idTournoi) public payable{
+        require(balances[msg.sender] < tournaments[idTournoi].cashprize);
+        require(msg.sender != owner);
 
-      balances[msg.sender] -= tournaments[idTournoi].cashprize;
-      player.playerAddress += tournaments[idTournoi].cashprize;
-      withdraw(msg.sender, player.playerAddress, tournaments[idTournoi].cashprize);
-  }*/
+        balances[msg.sender] -= tournaments[idTournoi].cashprize;
+        balances[playerA] += balances[msg.sender];
+        withdraw(msg.sender, playerA, tournaments[idTournoi].cashprize);
+  }
 
 }
