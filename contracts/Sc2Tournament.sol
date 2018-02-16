@@ -9,6 +9,7 @@ contract Sc2Tournaments {
     uint registrationFees;
     uint maxPeople;
     uint actualPeople;
+    uint ActualNumberOfMatch;
     mapping(uint => Player) players;
     mapping(uint => Match) matches;
   }
@@ -53,7 +54,25 @@ contract Sc2Tournaments {
 
   }
 
+/*  function GetTournamentPlayer(uint tournamentId)
+    public
+    returns (string[] playerName,string[] playerRace,address[] playerAddress)
+  {
 
+    uint constant range = tournaments[tournamentId].actualPeople;
+
+    address[range]  playAddress;
+    string[range]  name;
+    string[range]  race;
+
+    for (uint i = 0; i < range; i++) {
+        name.push(tournaments[tournamentId].players[i].name);
+        race.push(tournaments[tournamentId].players[i].race);
+        playAddress.push(tournaments[tournamentId].players[i].playerAddress);
+    }
+
+    return (name, race,playerAddress);
+  }*/
 
   function CreateMatch(uint id, string player1Name, string player2Name, int round, uint tournamentId) public {
     tournaments[tournamentId].matches[id].player1 = player1Name;
@@ -68,16 +87,15 @@ contract Sc2Tournaments {
 
   }
 
-  function Inscription(string playerName, string race, uint fees, uint tournamentId) payable {
-    var _playerName = playerName;
-    require(balances[msg.sender] > fees);
+  function Inscription(string playerName, string race, uint tournamentId) public payable {
+    /*require(balances[msg.sender] > tournaments[tournamentId].registrationFees);
 
     //safes.push(Safe({owner: msg.sender, fees))
-    balances[msg.sender] -= fees;
+    balances[msg.sender] -= tournaments[tournamentId].registrationFees;
     //cashprize += fees;
 
     require(tournaments[tournamentId].actualPeople < tournaments[tournamentId].maxPeople);
-    uint id = tournaments[tournamentId].actualPeople++;
+    */uint id = tournaments[tournamentId].actualPeople++;
 
     tournaments[tournamentId].players[id].race = race;
     tournaments[tournamentId].players[id].name = playerName;
