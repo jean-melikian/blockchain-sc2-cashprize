@@ -7,7 +7,7 @@ module.exports = {
     sourceType: 'module'
   },
   env: {
-    browser: true,
+    browser: false,
   },
   // https://github.com/standard/standard/blob/master/docs/RULES-en.md
   extends: 'standard',

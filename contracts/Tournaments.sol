@@ -1,6 +1,6 @@
 pragma solidity ^0.4.16;
 
-contract Sc2Tournaments {
+contract Tournaments {
 
   struct Tournament {
     uint id;
@@ -38,7 +38,7 @@ contract Sc2Tournaments {
 
   address owner;
 
-  function Sc2Tournaments() public {
+  function Tournaments() public {
     owner = msg.sender;
   }
 

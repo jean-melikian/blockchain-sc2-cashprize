@@ -2,6 +2,7 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import Dashboard from '@/components/Dashboard'
 import Signup from '@/components/Signup'
+import Tournaments from '@/components/Tournaments'
 
 Vue.use(Router)
 
@@ -9,6 +10,11 @@ export default new Router({
   routes: [
     {
       path: '/',
+      name: 'tournaments',
+      component: Tournaments
+    },
+    {
+      path: '/dashboard',
       name: 'dashboard',
       component: Dashboard
     },
